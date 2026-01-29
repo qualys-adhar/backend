@@ -4,7 +4,10 @@
  * HTTP request handlers for book-related endpoints.
  */
 
-import { Request, Response, NextFunction } from "express";
+// Local minimal types to avoid Express dependency
+type Request = any;
+type Response = any;
+type NextFunction = (err?: unknown) => void;
 import { bookService } from "./book.service";
 import { mlService } from "../ml/ml.service";
 

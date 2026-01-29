@@ -5,9 +5,9 @@
  * Includes ML-related fields for embeddings and processing status.
  */
 
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-export interface IBook extends Document {
+export interface IBook {
   _id: string;
   title: string;
   author: string;
