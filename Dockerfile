@@ -16,25 +16,27 @@ COPY src ./src
 COPY tsconfig.json ./
 
 # Build TypeScript
-RUN pnpm run build || echo "No build script, using tsx runtime"
+RUN pnpm run build
 
 # Production image
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Install pnpm
+# Install pnpm globally
 RUN npm install -g pnpm
 
 # Copy package files
 COPY package.json pnpm-lock.yaml ./
 
-# Install dependencies (including dev dependencies for tsx)
-RUN pnpm install --frozen-lockfile
+# Install production dependencies only
+RUN pnpm install --prod --frozen-lockfile
 
-# Copy built app (or source for tsx)
-COPY src ./src
-COPY tsconfig.json ./
+# Copy built app from builder stage
+COPY --from=builder /app/dist ./dist
 
-# Start application
-CMD ["pnpm", "dev"]
+# ✅ EXPOSE your app port (3000 is standard for Node)
+EXPOSE 3000
+
+# ✅ Use production start command (NOT dev)
+CMD ["pnpm", "start"]
