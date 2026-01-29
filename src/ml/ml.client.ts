@@ -179,6 +179,20 @@ class MLClient {
   getBaseURL(): string {
     return this.baseURL;
   }
+
+  /**
+   * Generic POST method for ML service
+   */
+  async post<T>(url: string, data?: any): Promise<{ data: T }> {
+    return await this.client.post<T>(url, data);
+  }
+
+  /**
+   * Generic GET method for ML service
+   */
+  async get<T>(url: string): Promise<{ data: T }> {
+    return await this.client.get<T>(url);
+  }
 }
 
 // Singleton instance

@@ -5,6 +5,7 @@
  */
 
 import mongoose from "mongoose";
+import { serve } from "@hono/node-server";
 import { app } from "./app";
 import { config } from "./config/env";
 import { mlService } from "./ml/ml.service";
@@ -45,7 +46,7 @@ async function checkMLService(): Promise<void> {
  */
 async function start(): Promise<void> {
   console.log("Starting Book Recommendation API...");
-  console.log(`Environment: ${config.server.env}`);
+  console.log(`Environment: ${config.server.nodeEnv}`);
 
   // Connect to database
   await connectDB();
@@ -54,12 +55,15 @@ async function start(): Promise<void> {
   await checkMLService();
 
   // Start HTTP server
-  app.listen(PORT, () => {
-    console.log(`✓ Server running on port ${PORT}`);
-    console.log(`  API: http://localhost:${PORT}`);
-    console.log(`  Health: http://localhost:${PORT}/health`);
-    console.log("");
+  serve({
+    fetch: app.fetch,
+    port: parseInt(PORT),
   });
+  
+  console.log(`✓ Server running on port ${PORT}`);
+  console.log(`  API: http://localhost:${PORT}`);
+  console.log(`  Health: http://localhost:${PORT}/health`);
+  console.log("");
 }
 
 /**

@@ -180,7 +180,7 @@ export class BookService {
 
     for (const book of failedBooks) {
       try {
-        await this.processBookForML(book._id);
+        await this.processBookForML(book._id.toString());
       } catch (error) {
         console.error(`[Book] Reprocessing failed for ${book._id}`);
       }

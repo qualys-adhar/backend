@@ -61,3 +61,13 @@ export interface MLServiceHealth {
   status: string;
   version?: string;
 }
+
+// Type aliases for backward compatibility
+export type AddBookRequest = IndexAddRequest;
+export type AddBookResponse = IndexAddResponse;
+export type HealthResponse = MLServiceHealth;
+export type IndexStats = {
+  total_vectors: number;
+  dimension: number;
+  index_type: string;
+};

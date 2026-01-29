@@ -72,7 +72,7 @@ export class BookController {
   ): Promise<void> {
     try {
       const { id } = req.params;
-      const book = await bookService.getBookById(id);
+      const book = await bookService.getBookById(id as string);
 
       if (!book) {
         res.status(404).json({ error: "Book not found" });
@@ -156,7 +156,7 @@ export class BookController {
       const { id } = req.params;
       const updates = req.body;
 
-      const book = await bookService.updateBook(id, updates);
+      const book = await bookService.updateBook(id as string, updates);
 
       if (!book) {
         res.status(404).json({ error: "Book not found" });
@@ -180,7 +180,7 @@ export class BookController {
   ): Promise<void> {
     try {
       const { id } = req.params;
-      await bookService.deleteBook(id);
+      await bookService.deleteBook(id as string);
 
       res.status(204).send();
     } catch (error) {
@@ -217,7 +217,7 @@ export class BookController {
     try {
       const { id } = req.params;
 
-      const book = await bookService.getBookById(id);
+      const book = await bookService.getBookById(id as string);
       if (!book) {
         res.status(404).json({ error: "Book not found" });
         return;
@@ -225,7 +225,7 @@ export class BookController {
 
       // Start reprocessing
       bookService
-        .processBookForML(id)
+        .processBookForML(id as string)
         .catch((err) => console.error("[API] Reprocessing failed:", err));
 
       res.status(202).json({

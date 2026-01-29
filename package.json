@@ -1,10 +1,10 @@
 {
   "name": "book-analytics-backend",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "dev": "tsx src/index.ts",
-    "build": "tsc",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc",
     "start": "node dist/index.js"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^25.0.9",
     "tsx": "^4.7.0",
     "typescript": "^5.3.0"

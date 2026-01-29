@@ -33,4 +33,5 @@ app.route("/analyze", analyzeRoute);
 app.route("/books", booksRoute);
 app.route("/ml", mlRoutes);
 
+export { app };
 export default app;

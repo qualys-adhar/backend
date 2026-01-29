@@ -27,4 +27,25 @@ if (!parsed.success) {
   throw new Error("Invalid environment configuration");
 }
 
-export const env = process.env;
+export const config = {
+  server: {
+    port: parsed.data.PORT,
+    nodeEnv: parsed.data.NODE_ENV,
+  },
+  aws: {
+    region: parsed.data.AWS_REGION,
+    accessKeyId: parsed.data.AWS_ACCESS_KEY_ID,
+    secretAccessKey: parsed.data.AWS_SECRET_ACCESS_KEY,
+    s3Bucket: parsed.data.AWS_S3_BUCKET,
+  },
+  mongodb: {
+    uri: parsed.data.MONGO_URI,
+  },
+  ml: {
+    serviceUrl: parsed.data.ML_SERVICE_URL,
+    retries: 3,
+    retryDelay: 1000,
+  },
+};
+
+export const env = parsed.data;
