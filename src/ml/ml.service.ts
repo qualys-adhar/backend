@@ -41,7 +41,9 @@ export class MLService {
         overlap,
       } as EmbedRequest);
 
-      console.log(`[ML] Generated embedding (${response.data.embedding.length} dimensions)`);
+      console.log(
+        `[ML] Generated embedding (${response.data.embedding.length} dimensions)`,
+      );
       return response.data.embedding;
     } catch (error) {
       console.error("[ML] Failed to embed book:", error);
@@ -68,9 +70,7 @@ export class MLService {
         metadata,
       } as AddBookRequest);
 
-      console.log(
-        `[ML] Book ${bookId} added to index successfully`,
-      );
+      console.log(`[ML] Book ${bookId} added to index successfully`);
       return response.data;
     } catch (error) {
       console.error("[ML] Failed to add book to index:", error);
@@ -169,13 +169,10 @@ export class MLService {
   async healthCheck(): Promise<boolean> {
     try {
       const response = await mlClient.get<HealthResponse>("/");
-      const isHealthy =
-        response.data.status === "running";
+      const isHealthy = response.data.status === "running";
 
       if (isHealthy) {
-        console.log(
-          `[ML] Service healthy`,
-        );
+        console.log(`[ML] Service healthy`);
       } else {
         console.warn("[ML] Service unhealthy:", response.data);
       }

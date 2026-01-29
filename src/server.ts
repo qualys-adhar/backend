@@ -59,7 +59,7 @@ async function start(): Promise<void> {
     fetch: app.fetch,
     port: parseInt(PORT),
   });
-  
+
   console.log(`✓ Server running on port ${PORT}`);
   console.log(`  API: http://localhost:${PORT}`);
   console.log(`  Health: http://localhost:${PORT}/health`);
